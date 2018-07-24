@@ -18,7 +18,7 @@
       echo "<pre>";
       print_r($row);
     }
-
+    return 10;
     $accessToken = "Ay1yPpXeiTi/ODaL+th3bGpdycIz3yKuKSbiPLSoXN2tA9UUMmjKd6gZ/Zy7oaxBMJN1s0OM/p4YtOEzSjxz6CVJ5mYEwc2t6EQklRXd74FqjFmHyY9MV0grBF9UkiI6VfZEWq6OhAmumMhgz1FIpAdB04t89/1O/w1cDnyilFU=";//copy Channel access token ตอนที่ตั้งค่ามาใส่
 
     $content = file_get_contents('php://input');
