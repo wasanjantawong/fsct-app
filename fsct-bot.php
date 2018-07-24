@@ -13,9 +13,6 @@
       mysqli_query($conn, 'SET NAMES UTF8');
     }
 
-    $sql = "SELECT * FROM fsct_bot";
-    $result = mysqli_query($conn, $sql);
-
     $accessToken = "Ay1yPpXeiTi/ODaL+th3bGpdycIz3yKuKSbiPLSoXN2tA9UUMmjKd6gZ/Zy7oaxBMJN1s0OM/p4YtOEzSjxz6CVJ5mYEwc2t6EQklRXd74FqjFmHyY9MV0grBF9UkiI6VfZEWq6OhAmumMhgz1FIpAdB04t89/1O/w1cDnyilFU=";//copy Channel access token ตอนที่ตั้งค่ามาใส่
 
     $content = file_get_contents('php://input');
@@ -28,14 +25,20 @@
     //รับข้อความจากผู้ใช้
     $message = $arrayJson['events'][0]['message']['text'];
 #ตัวอย่าง Message Type "Text"
+
+    $sql = "SELECT * FROM fsct_bot WHERE question like '%$message%' ";
+    $result = mysqli_query($conn, $sql);
+    mysqli_close($conn);
     $find = 0;
-    while ($data = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-      if($message == $data['question']){ //คำถาม
-          $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
-          $arrayPostData['messages'][0]['type'] = "text";
-          $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
-          replyMsg($arrayHeader,$arrayPostData);
-          $find = 1;
+    if($result){
+      while($data = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+
+            $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
+            $arrayPostData['messages'][0]['type'] = "text";
+            $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
+            replyMsg($arrayHeader,$arrayPostData);
+            $find = 1;
+
       }
     }
 

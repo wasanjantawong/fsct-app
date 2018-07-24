@@ -2,7 +2,7 @@
   require_once 'config.php';
 
   $qa = $_POST['QUESTION'];
-  $as = "<pre>".$_POST['ANSWER']."</pre>";
+  $as = $_POST['ANSWER'];
 
   $sql = "INSERT INTO fsct_bot(question, answer)
           VALUES('$qa', '$as')";

@@ -93,7 +93,7 @@
             <tr>
               <td><?= $data['id'] ?></td>
               <td><?= $data['question'] ?></td>
-              <td><?= $data['answer'] ?></td>
+              <td><pre><?= $data['answer'] ?></pre></td>
             </tr>
 <?php endwhile; ?>
           </tbody>
