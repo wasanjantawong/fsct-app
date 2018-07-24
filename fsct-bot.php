@@ -35,12 +35,12 @@
     $arrayPostData['messages'][0]['type'] = "text";
 
     if($result){
+      $find = 1;
       while($data = mysqli_fetch_array($result, MYSQLI_ASSOC)){
             $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
             replyMsg($arrayHeader,$arrayPostData);
             $find++;
       }
-      $find = 1;
 
       $arrayPostData['messages'][0]['text'] = $find;//คำตอบ
       replyMsg($arrayHeader,$arrayPostData);
@@ -103,5 +103,4 @@ function replyMsg($arrayHeader,$arrayPostData){
         $result = curl_exec($ch);
         curl_close ($ch);
     }
-   exit;
 ?>
