@@ -1,5 +1,4 @@
 <?php
-    echo "test";
     $DB['server'] = '163.44.196.236';
     $DB['user'] = 'fsctonli_it3';
     $DB['pass'] = 'fsctit';
@@ -10,16 +9,13 @@
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
         return '99';
+    }else{
+      mysqli_query($conn, 'SET NAMES UTF8');
     }
 
     $sql = "SELECT * FROM fsct_bot";
     $result = mysqli_query($conn, $sql);
 
-    while ($row = mysqli_fect_array($result, MYSQLI_ASSOC)) {
-      echo "<pre>";
-      print_r($row);
-    }
-    return 10;
     $accessToken = "Ay1yPpXeiTi/ODaL+th3bGpdycIz3yKuKSbiPLSoXN2tA9UUMmjKd6gZ/Zy7oaxBMJN1s0OM/p4YtOEzSjxz6CVJ5mYEwc2t6EQklRXd74FqjFmHyY9MV0grBF9UkiI6VfZEWq6OhAmumMhgz1FIpAdB04t89/1O/w1cDnyilFU=";//copy Channel access token ตอนที่ตั้งค่ามาใส่
 
     $content = file_get_contents('php://input');
@@ -32,12 +28,22 @@
     //รับข้อความจากผู้ใช้
     $message = $arrayJson['events'][0]['message']['text'];
 #ตัวอย่าง Message Type "Text"
-    if($message == "สวัสดี"){
-        $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
-        $arrayPostData['messages'][0]['type'] = "text";
-        $arrayPostData['messages'][0]['text'] = "สวัสดีจ้าาา";
-        replyMsg($arrayHeader,$arrayPostData);
+
+    while ($data = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+      if($message == $data['question']){ //คำถาม
+          $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
+          $arrayPostData['messages'][0]['type'] = "text";
+          $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
+          replyMsg($arrayHeader,$arrayPostData);
+      }else{
+          $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
+          $arrayPostData['messages'][0]['type'] = "text";
+          $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
+          replyMsg($arrayHeader,$arrayPostData);
+      }
     }
+
+    /*
     #ตัวอย่าง Message Type "Sticker"
     else if($message == "ฝันดี"){
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
@@ -74,7 +80,7 @@
         $arrayPostData['messages'][1]['packageId'] = "1";
         $arrayPostData['messages'][1]['stickerId'] = "131";
         replyMsg($arrayHeader,$arrayPostData);
-    }
+    }*/
 function replyMsg($arrayHeader,$arrayPostData){
         $strUrl = "https://api.line.me/v2/bot/message/reply";
         $ch = curl_init();
