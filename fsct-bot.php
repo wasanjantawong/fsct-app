@@ -38,7 +38,7 @@
       $find = 1;
       while($data = mysqli_fetch_array($result, MYSQLI_ASSOC)){
             $arrayPostData['messages'][0]['text'] = .$data['answer']."  ";//คำตอบ
-            replyMsg($arrayHeader,$arrayPostData);
+            //replyMsg($arrayHeader,$arrayPostData);
             $find++;
       }
 
