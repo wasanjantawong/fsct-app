@@ -26,24 +26,17 @@
     $message = $arrayJson['events'][0]['message']['text'];
 #ตัวอย่าง Message Type "Text"
 
-    $sql = "SELECT * FROM fsct_bot WHERE question like '%$message%' ";
+    $sql = "SELECT * FROM fsct_bot WHERE question like '%$message%' LIMIT 1 ";
     $result = mysqli_query($conn, $sql);
     mysqli_close($conn);
     $find = 0;
 
-    $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
-    $arrayPostData['messages'][0]['type'] = "text";
-
     if($row = mysqli_num_rows($result)){
-      $find = 1;
-      $i = 0;
-      while($data = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-            $arrayPostData['messages'][$i++]['text'] = $data['answer'];//คำตอบ
-      }
-      replyMsg($arrayHeader,$arrayPostData);
-    }
-
-    if($find == 0){
+        $find = 1;
+        $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
+        $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
+        replyMsg($arrayHeader,$arrayPostData);
+    }else{
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = 'ไม่พบคำถาม กรุณาเพิ่มคำถามและคำตอบได้ที https://fsct-app.herokuapp.com/';//คำตอบ
