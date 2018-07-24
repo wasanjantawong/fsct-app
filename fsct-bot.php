@@ -38,7 +38,7 @@
       }else{
           $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
           $arrayPostData['messages'][0]['type'] = "text";
-          $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
+          $arrayPostData['messages'][0]['text'] = 'ไม่พบคำถาม กรุณาเพิ่มคำถามและคำตอบได้ที <br> https://fsct-app.herokuapp.com/';//คำตอบ
           replyMsg($arrayHeader,$arrayPostData);
       }
     }
