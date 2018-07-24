@@ -30,16 +30,20 @@
     $result = mysqli_query($conn, $sql);
     mysqli_close($conn);
     $find = 0;
+
+    $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
+    $arrayPostData['messages'][0]['type'] = "text";
+
     if($result){
       while($data = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-
-            $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
-            $arrayPostData['messages'][0]['type'] = "text";
-            $arrayPostData['messages'][0]['text'] = $sql;//คำตอบ
+            $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
             replyMsg($arrayHeader,$arrayPostData);
-            $find = 1;
-
+            $find++;
       }
+      $find = 1;
+
+      $arrayPostData['messages'][0]['text'] = $find;//คำตอบ
+      replyMsg($arrayHeader,$arrayPostData);
     }
 
     if($find == 0){
