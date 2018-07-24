@@ -36,12 +36,11 @@
 
     if($row = mysqli_num_rows($result)){
       $find = 1;
+      $i = 0;
       while($data = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-            $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
-            replyMsg($arrayHeader,$arrayPostData);
-            replyMsg($arrayHeader,$arrayPostData);
-            replyMsg($arrayHeader,$arrayPostData);
+            $arrayPostData['messages'][$i++]['text'] = $data['answer'];//คำตอบ
       }
+      replyMsg($arrayHeader,$arrayPostData);
     }
 
     if($find == 0){
@@ -99,7 +98,6 @@ function replyMsg($arrayHeader,$arrayPostData){
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $result = curl_exec($ch);
+        curl_close ($ch);
     }
-
-curl_close ($ch);
 ?>
