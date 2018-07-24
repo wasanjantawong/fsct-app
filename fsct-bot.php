@@ -34,7 +34,7 @@
     $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
     $arrayPostData['messages'][0]['type'] = "text";
 
-    if($result){
+    if($row = mysqli_num_rows($result)){
       $find = 1;
       while($data = mysqli_fetch_array($result, MYSQLI_ASSOC)){
             $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
