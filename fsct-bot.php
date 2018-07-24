@@ -37,12 +37,12 @@
     if($row = mysqli_num_rows($result)){
       $find = 1;
       while($data = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-            $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
+            $arrayPostData['messages'][0]['text'] = .$data['answer']."  ";//คำตอบ
             replyMsg($arrayHeader,$arrayPostData);
             $find++;
       }
 
-      $arrayPostData['messages'][0]['text'] = $find;//คำตอบ
+      $arrayPostData['messages'][0]['text'] = .$find;//คำตอบ
       replyMsg($arrayHeader,$arrayPostData);
     }
 
