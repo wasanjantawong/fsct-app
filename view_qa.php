@@ -1,9 +1,12 @@
 <?php
-  if(!empty($_GET['status'])){
-    echo '<script type="text/javascript">alert("บันทึกข้อมูลสำเร็จ");</script>';
-  }
+  require_once 'config.php';
 
+  $sql = "SELECT * FROM fsct_bot";
+
+  $result = mysqli_query($conn, $sql);
+  mysqli_close($conn);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,6 +25,14 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+
+    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
   </head>
   <body>
 
@@ -68,31 +79,35 @@
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron container text-center">
-        <form class="" action="add.php" method="post">
-          <h2>เพิ่มคำถาม - คำตอบ</h2>
-
-          <div class="row-fluid form-group text-left">
-            <label for="qa">คำถาม</label>
-            <input type="text" class="form-control" id="qa" name="QUESTION">
-          </div>
-          <div class="row-fluid form-group text-left">
-            <label for="AW">คำถาม</label>
-            <textarea class="form-control" name="ANSWER" id="AW" rows="5"></textarea>
-          </div>
-
-          <br>
-          <button type="submit" class="btn btn-primary" name="button">บันทึก</button>
-          &nbsp&nbsp&nbsp
-          <button type="reset" class="btn btn-danger">Clear</button>
-        </form>
+        <h2>คำถาม - คำตอบที่มีอยู่</h2>
+        <table class="table table-striped" id="TABLE_VIEW">
+          <thead>
+            <tr>
+              <th class="text-center">ลำดับ</th>
+              <th class="text-center">คำถาม</th>
+              <th class="text-center">คำตอบ</th>
+            </tr>
+          </thead>
+          <tbody>
+<?php while ($data = mysqli_fetch_array($result, MYSQLI_ASSOC)): ?>
+            <tr>
+              <td><?= $data['id'] ?></td>
+              <td><?= $data['question'] ?></td>
+              <td><?= $data['answer'] ?></td>
+            </tr>
+<?php endwhile; ?>
+          </tbody>
+        </table>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $('#TABLE_VIEW').DataTable();
+          } );
+        </script>
       </div>
 
     </div> <!-- /container -->
 
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+
   </body>
 </html>
