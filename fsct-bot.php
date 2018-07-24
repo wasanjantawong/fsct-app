@@ -28,21 +28,23 @@
     //รับข้อความจากผู้ใช้
     $message = $arrayJson['events'][0]['message']['text'];
 #ตัวอย่าง Message Type "Text"
-
+    $find = 0;
     while ($data = mysqli_fetch_array($result, MYSQLI_ASSOC)){
       if($message == $data['question']){ //คำถาม
           $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
           $arrayPostData['messages'][0]['type'] = "text";
           $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
           replyMsg($arrayHeader,$arrayPostData);
-      }else{
-          $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
-          $arrayPostData['messages'][0]['type'] = "text";
-          $arrayPostData['messages'][0]['text'] = 'ไม่พบคำถาม กรุณาเพิ่มคำถามและคำตอบได้ที <br> https://fsct-app.herokuapp.com/';//คำตอบ
-          replyMsg($arrayHeader,$arrayPostData);
+          $find = 1;
       }
     }
 
+    if($find == 0){
+        $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
+        $arrayPostData['messages'][0]['type'] = "text";
+        $arrayPostData['messages'][0]['text'] = 'ไม่พบคำถาม กรุณาเพิ่มคำถามและคำตอบได้ที https://fsct-app.herokuapp.com/';//คำตอบ
+        replyMsg($arrayHeader,$arrayPostData);
+    }
     /*
     #ตัวอย่าง Message Type "Sticker"
     else if($message == "ฝันดี"){
