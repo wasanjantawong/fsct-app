@@ -35,7 +35,7 @@
 
             $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
             $arrayPostData['messages'][0]['type'] = "text";
-            $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
+            $arrayPostData['messages'][0]['text'] = $sql;//คำตอบ
             replyMsg($arrayHeader,$arrayPostData);
             $find = 1;
 
