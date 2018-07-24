@@ -1,4 +1,24 @@
 <?php
+    $DB['server'] = 'http://163.44.196.236';
+    $DB['user'] = 'fsctonli_it3';
+    $DB['pass'] = 'fsctit';
+    $DB['dbname'] = 'fsctonli_web';
+
+    $conn = mysqli_connect($DB['server'], $DB['user'], $DB['pass'], $DB['dbname']);
+
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+        return '99';
+    }
+
+    $sql = "SELECT * FROM fsct_bot";
+    $result = mysqli_query($conn, $sql);
+
+    while ($row = mysqli_fect_array($result, MYSQLI_ASSOC)) {
+      echo "<pre>";
+      print_r($row);
+    }
+
     $accessToken = "Ay1yPpXeiTi/ODaL+th3bGpdycIz3yKuKSbiPLSoXN2tA9UUMmjKd6gZ/Zy7oaxBMJN1s0OM/p4YtOEzSjxz6CVJ5mYEwc2t6EQklRXd74FqjFmHyY9MV0grBF9UkiI6VfZEWq6OhAmumMhgz1FIpAdB04t89/1O/w1cDnyilFU=";//copy Channel access token ตอนที่ตั้งค่ามาใส่
 
     $content = file_get_contents('php://input');
