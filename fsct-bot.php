@@ -34,6 +34,7 @@
     if($row = mysqli_num_rows($result)){
         $find = 1;
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
+        $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
         replyMsg($arrayHeader,$arrayPostData);
     }else{
