@@ -32,6 +32,7 @@
     $find = 0;
 
     if($row = mysqli_num_rows($result)){
+        $data = mysqli_fetch_assoc($result);
         $find = 1;
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
