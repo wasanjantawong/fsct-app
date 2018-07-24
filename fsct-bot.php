@@ -1,5 +1,5 @@
 <?php
-    $DB['server'] = 'http://163.44.196.236';
+    $DB['server'] = '163.44.196.236';
     $DB['user'] = 'fsctonli_it3';
     $DB['pass'] = 'fsctit';
     $DB['dbname'] = 'fsctonli_web';
