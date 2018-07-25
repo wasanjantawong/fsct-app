@@ -76,7 +76,7 @@
             <input type="text" class="form-control" id="qa" name="QUESTION">
           </div>
           <div class="row-fluid form-group text-left">
-            <label for="AW">คำถาม</label>
+            <label for="AW">คำตอบ</label>
             <textarea class="form-control" name="ANSWER" id="AW" rows="5"></textarea>
           </div>
 
