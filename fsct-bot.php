@@ -38,12 +38,15 @@
         $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
         replyMsg($arrayHeader,$arrayPostData);
-    }else{
+    }
+
+    /*else{
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = 'ไม่พบคำถาม กรุณาเพิ่มคำถามและคำตอบได้ที https://fsct-app.herokuapp.com/';//คำตอบ
         replyMsg($arrayHeader,$arrayPostData);
-    }
+    }*/
+    
     /*
     #ตัวอย่าง Message Type "Sticker"
     else if($message == "ฝันดี"){
