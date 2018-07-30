@@ -38,13 +38,15 @@
         $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = $data['answer'];//คำตอบ
         replyMsg($arrayHeader,$arrayPostData);
-    }else{
+    }
+/*
+    else{
         $data = mysqli_fetch_assoc($result);
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = 'โปรแกรมเมอร์หยุด';//คำตอบ
         replyMsg($arrayHeader,$arrayPostData);
-    }
+    }*/
 
     /*else{
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
